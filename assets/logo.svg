@@ -1,0 +1,23 @@
+<svg width="640" height="170" viewBox="0 0 640 170" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Curated Claude Code">
+  <!-- icon: a funnel that filters a dump into a vetted few -->
+  <g transform="translate(28,28)">
+    <!-- scattered "dump" above the funnel -->
+    <circle cx="20" cy="12" r="5" fill="#94a3b8"/>
+    <circle cx="44" cy="8"  r="7" fill="#cbd5e1"/>
+    <circle cx="68" cy="14" r="4" fill="#94a3b8"/>
+    <circle cx="90" cy="9"  r="6" fill="#cbd5e1"/>
+    <circle cx="33" cy="26" r="4" fill="#cbd5e1"/>
+    <circle cx="78" cy="27" r="5" fill="#94a3b8"/>
+    <circle cx="56" cy="24" r="4" fill="#cbd5e1"/>
+    <!-- funnel -->
+    <path d="M6 40 H108 L70 84 V110 L44 122 V84 Z" fill="none" stroke="#475569" stroke-width="5" stroke-linejoin="round"/>
+    <!-- the vetted few coming out -->
+    <circle cx="57" cy="138" r="6" fill="#16a34a"/>
+    <!-- check mark badge -->
+    <circle cx="92" cy="132" r="17" fill="#16a34a"/>
+    <path d="M84 132 l6 6 l11 -13" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <!-- wordmark -->
+  <text x="170" y="78" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="42" font-weight="700" fill="#64748b">Curated <tspan fill="#16a34a">Claude Code</tspan></text>
+  <text x="172" y="112" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="500" fill="#94a3b8" letter-spacing="1.5">vetted · safe · self-evolving</text>
+</svg>
