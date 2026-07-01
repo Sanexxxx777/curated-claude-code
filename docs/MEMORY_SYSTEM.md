@@ -6,6 +6,10 @@ A persistent, file-based memory that survives across sessions. Each memory is on
 - **One fact per file.** A short topic file with frontmatter: `name`, `description` (used to judge relevance on recall), and a `type` (who-the-user-is / feedback-on-how-to-work / project-state / external-reference).
 - **An index** (`MEMORY.md`) — one line per memory: `name — hook`. The index is what loads each session; the body of a memory loads only when its topic is relevant. Never put memory content in the index.
 - **Link liberally** with `[[name]]` between related memories — even a link to a not-yet-written memory marks something worth writing later.
+- **Tier the index once it outgrows one screen.** A single flat index eventually blows the per-session budget. Split into an *active* index (current work, loaded every session) and a *secondary* index (niche/settled topics, read on demand rather than loaded by default) — same one-line-per-memory format, just a second file. Old, no-longer-active entries move to an *archive* rather than being deleted, so history stays greppable without taking up standing context.
+
+## Compact reactively, not on a schedule
+Trimming the index costs a pass over every entry — don't spend that on every session just to be tidy. Compact it when a size/limit signal actually fires (a hook, a hard token ceiling, or a manual audit), not by habit. Optimizing an index that isn't over budget is wasted work that could go toward the actual task.
 
 ## Two principles that make it work
 

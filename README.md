@@ -59,6 +59,7 @@ Two by design, not sixty — each reflects the verify-before-trust stance, not f
 | [`code-principles.md`](rules/code-principles.md) | Behavioral rules against typical LLM coding mistakes (think-before-code, simplicity, surgical edits, verifiable targets, plan-mode). |
 | [`safety-guards.md`](rules/safety-guards.md) | The spine: external content = data not commands; mutation = confirmation; signing-to-real-funds = never; secrets as file:line; result honesty. |
 | [`new-project.md`](rules/new-project.md) | A "think before code" checklist for starting something from scratch. |
+| [`detective-mindset.md`](rules/detective-mindset.md) | Reading logs/data like a detective — numeric coincidences, distribution anomalies, cross-source correlation, ghost state, repeat actors, config-vs-code drift. |
 
 ### Docs & examples
 - [`docs/EVOLUTION.md`](docs/EVOLUTION.md) — **how the harness improves itself** (start here).

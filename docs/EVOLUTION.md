@@ -62,5 +62,16 @@ When an "emerging" item matures, it moves up to "established" and a new one take
 
 ---
 
+## A pattern for auditing high-stakes code
+
+Some code (anything touching money, production data, or user trust) deserves more than a single read-through. The pattern that holds up across domains:
+
+1. **Fan out specialized auditors in parallel**, each scoped to one lens (correctness, security, data integrity, performance, whatever the domain calls for) rather than one generalist pass trying to hold all lenses at once. Narrow scope catches more per lens.
+2. **Adversarially verify every finding** before acting on it — hand each one to a fresh, independent pass whose job is to *refute* it (see [`agents/adversarial-verifier.md`](../agents/adversarial-verifier.md)), not confirm it. A finding that survives an attempt to kill it is worth fixing; one that doesn't was noise.
+3. **Fix only behind a reproducing check** — a failing test, a backtest, a rerun that demonstrably flips from bad to good. A fix with no reproduction is a guess wearing a diff.
+4. **Treat deploy as the real test, and go look.** Passing tests locally isn't the finish line for high-stakes code — after it ships, deliberately find *positive evidence* in the actual logs/metrics that the fix behaved as intended. No errors is not the same as working; a feature can be silently dead from day one and "no errors" would never tell you.
+
+Cherry-pick the layer that fits — a small change might only need step 2; a full subsystem audit wants all four.
+
 ## The principle
 Curated does not mean frozen. It means **every addition passes a gate, and the system has a memory of why.** A static bundle peaks the day it's published. A harness with intake, hygiene, and a learning loop compounds. That compounding — not the block count — is the thing worth sharing.

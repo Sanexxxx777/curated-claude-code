@@ -23,6 +23,14 @@ Maintain a private "task → tool" table (in your own notes, not a public repo).
 
 (Adapt the rows to your own stack. The point is the *habit of routing*, not this exact table.)
 
+## Cost-tiered routing
+Within one task type, don't default to the heaviest tool — weigh the ask first. Research is the clearest case:
+1. **Point lookup** (a known fact, "where do I look") → a single web search / docs query. Seconds, near-zero cost.
+2. **Medium review** ("what's better", 2–4 angles to weigh) → one or two focused research agents, synthesize yourself. This is the *default* for most "give me an overview" asks.
+3. **Broad topic + adversarial fact-checking + high cost of being wrong** → a full deep-research pipeline (fan-out search, independent verification passes, cited synthesis). Reserve this tier — it can be an order of magnitude more expensive than tier 2, so confirm with the user before running it.
+
+Test before escalating a tier: does this genuinely need multi-pass adversarial verification of many claims, or would one good agent answer it? The same weighing applies to any tool family with a cheap and an expensive mode (a quick grep vs. a full-repo audit, a single verifier vs. an N-way panel) — match the tier to the question, not to what feels thorough.
+
 ## Don't
 - Don't install a paid/mutating tool without the user's command.
 - Don't duplicate a built-in with an external tool (web fetch / browser automation / image reading often already exist).
