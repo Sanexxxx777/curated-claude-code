@@ -23,9 +23,12 @@ This repo optimizes for the opposite. A handful of skills that earn their place,
 - ✅ **Safety by design** — no surprise autonomous actions.
 - ❌ Not a 500-block mega-bundle. Not a framework you fork. No auto-running hooks.
 
+## Looking for a "self-learning" setup?
+Single-skill self-learning harvesters are trending, and the good ones are genuinely good. This repo is the **system that pattern lives in**: four learning layers (corrections → memory → skills → gated intake) instead of one harvest step, a promotion gate so unverified guesses never become authoritative skills, an intake gate (`/vet`) so the stack doesn't bloat as it learns, and a hygiene loop (`system-health`) so it doesn't rot. If you only want the harvest step, [`Kulaxyz/self-learning-skills`](https://github.com/Kulaxyz/self-learning-skills) does it well — we credit and cherry-pick it in [`docs/EVOLUTION.md`](docs/EVOLUTION.md). If you want learning as an *operating discipline*, start here.
+
 ## Why curated, not dumped
 - **Vet before adopt.** Nothing enters on hype. Every incoming tool runs through one pipeline — relevance → **security as a blocking gate** → duplication → real ROI → verdict. The security phase reads a skill's body as a *behavioral* instruction and checks the agentic risks (hidden instructions, prompt injection, trigger abuse, excessive agency) a code-only scan misses.
-- **It evolves.** A user correction is the strongest learning signal; a finding is captured at discovery; a 5+-iteration procedure becomes a skill. The system compounds instead of going stale. → [`docs/EVOLUTION.md`](docs/EVOLUTION.md)
+- **It evolves.** A user correction is the strongest learning signal; a finding is captured at discovery; a 5+-iteration procedure becomes a skill — but only past a **promotion gate** (verified check + named failure pattern + a ruled-out dead-end), so confident guesses never get enshrined as truth. The system compounds instead of going stale. → [`docs/EVOLUTION.md`](docs/EVOLUTION.md)
 - **Cherry-pick over giant.** A good idea inside a huge framework doesn't justify installing the framework. Extract the technique, leave the bloat.
 - **No auto-hooks.** Auto-mutation without confirmation is exactly the failure mode to avoid. → [`rules/safety-guards.md`](rules/safety-guards.md)
 
@@ -106,6 +109,7 @@ This harness was built the way it tells you to build — by cherry-picking techn
 - `code-principles` is derived from Karpathy's widely-shared CLAUDE.md principles.
 - `goal`'s design phase cherry-picks loop-design ideas from [`ksimback/looper`](https://github.com/ksimback/looper).
 - `teach` adapts Anthropic's guided-learning prompt.
+- The skill promotion gate in `EVOLUTION.md` cherry-picks the verification bar from [`Kulaxyz/self-learning-skills`](https://github.com/Kulaxyz/self-learning-skills).
 
 ## Work with me
 I build and harden Claude Code workflows, agentic setups, and web apps — and I do managed hosting and site builds. If these patterns are useful to your team, or you want help applying them, reach out:

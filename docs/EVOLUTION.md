@@ -19,6 +19,14 @@ A root cause, a working workaround, a live incident — write it to memory the *
 ### Layer 3 — procedure as skill
 When a reproducible task takes more than ~5 rounds of trial-and-error (or hits the same rake twice), don't just record the *finding* — record the **working procedure** (the exact steps). A one-off → a `feedback` note; a recurring workflow → a new skill. Next time you walk the known path instead of re-deriving it and burning tokens. Check for an existing skill/note first — fragmentation is its own failure.
 
+**The promotion gate — don't enshrine guesses.** A skill is authoritative: the next session trusts it without re-deriving it. So promotion has a bar. Write the procedure down as a skill only when **all three** hold:
+
+1. **A passing check.** The path was actually verified — a test went green, the command exited clean, the repro reproduced. "Seemed to work" is not a passing check.
+2. **A named failure pattern.** You can name the specific failure this path avoids or diagnoses, not a vague "sometimes it breaks".
+3. **At least one ruled-out dead-end.** A concrete approach you tried and eliminated, with the reason.
+
+Missing any of the three → it's not a skill yet; leave a memory note explicitly marked *unverified* instead. And when you do write the skill, include a **"What didn't work"** section — the dead-ends you ruled out (with reasons) often save the next session more time than the golden path itself. (Gate criteria cherry-picked from [`Kulaxyz/self-learning-skills`](https://github.com/Kulaxyz/self-learning-skills) — a technique worth crediting, per this repo's own rules.)
+
 ### Layer 4 — controlled intake
 Growth without a gate is just bloat. Everything new passes `/vet` (security blocking gate → duplication → real ROI → verdict) and lands in a registry so it's never evaluated twice. A reject with a reason is as much "learning" as an adopt: the system remembers what *not* to let in, even under a rebrand.
 
