@@ -122,4 +122,4 @@ PRs welcome — see [`CONTRIBUTING.md`](CONTRIBUTING.md). The bar: it must pass 
 If this saved you time, a ⭐ helps others find it.
 
 ## License
-[MIT](LICENSE) © Aleksandr Shulgin ([@Sanexxxx777](https://github.com/Sanexxxx777))
+[MIT](LICENSE) © Aleksandr Shulgin ([@Aleksandr_NFA](https://t.me/Aleksandr_NFA)) · [@Sanexxxx777](https://github.com/Sanexxxx777)
