@@ -10,6 +10,15 @@
   <img src="https://img.shields.io/badge/auto--hooks-none-blue" alt="no auto-hooks">
 </p>
 
+<!-- TODO: demo GIF (20-40s) -->
+
+<details>
+<summary>🇷🇺 Кратко на русском</summary>
+
+Небольшой курированный харнесс для Claude Code — не свалка из сотен блоков, а горстка скиллов, которые заслужили место, плюс каркас безопасности и (главное) **цикл самоулучшения**: правки пользователя становятся памятью, находки — скиллами, вход нового инструмента идёт через гейт `/vet` (безопасность — блокирующий шаг). Никаких авто-хуков, которые мутируют что-то без спроса. Подробности — в [`docs/EVOLUTION.md`](docs/EVOLUTION.md). Полный текст ниже на английском.
+
+</details>
+
 Most "everything for Claude Code" collections optimize for **count** — hundreds of agents, skills, rules, and event hooks that auto-run on your tool calls. It looks impressive and fails quietly: bloated context, overlapping triggers fighting to activate, and hooks that mutate things without asking.
 
 This repo optimizes for the opposite. A handful of skills that earn their place, a spine of safety guards, and — the actual product — **a system that improves itself over time, safely.**
