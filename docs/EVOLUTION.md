@@ -58,15 +58,17 @@ A live system always has two kinds of capability. Naming both is part of the dis
 - The file-based, self-learning memory pattern.
 - Change discipline (backup → surgical → verify → record).
 - Code principles (think-before-code, simplicity, surgical edits, verifiable targets, plan-mode).
+- Root-cause discipline (fix the owning layer, minimal ≠ smallest diff, primary vs secondary verification signals) — see [`rules/root-cause-discipline.md`](../rules/root-cause-discipline.md).
+- **Cross-model review** — a second, *different* model reads the finished work read-only before "done" on anything non-trivial, and again after three failed attempts at the same error. Promoted from "emerging" below: what made it stick was making it cheap and bounded (read-only, one or two calls per task, no write access) rather than aspirational.
 
 ### Emerging (being grown)
 These are deliberately *open*, not gaps to hide:
 - **Separation of judge from author** — semantic verification by a different pass/model, not the hand that did the work (already wired into `skills/goal`; generalizing further).
-- **Multi-model councils** — `konsilium` runs one model in N lenses today; genuine multi-provider diversity is the next step.
+- **Deterministic orchestration** — moving fan-out and vote-counting from prose instructions into an actual script, so verification is arithmetic rather than a request. `konsilium` still runs one model in N lenses; the structure around it is what's being made deterministic.
 - **Budget-aware loops** — time/token ceilings on autonomous work, beyond a simple cycle count.
 - **Deeper verification rubrics** — typed, measurable done-criteria as the default everywhere, not just in `goal`.
 
-When an "emerging" item matures, it moves up to "established" and a new one takes its place. That movement *is* the evolution.
+When an "emerging" item matures, it moves up to "established" and a new one takes its place. That movement *is* the evolution — and it's meant to be visible here: cross-model review sat in this bottom list before it earned its way into the one above, and something in the current bottom list should be gone the next time you read this file. A "points of growth" section that never changes is decoration.
 
 ---
 
@@ -78,6 +80,8 @@ Some code (anything touching money, production data, or user trust) deserves mor
 2. **Adversarially verify every finding** before acting on it — hand each one to a fresh, independent pass whose job is to *refute* it (see [`agents/adversarial-verifier.md`](../agents/adversarial-verifier.md)), not confirm it. A finding that survives an attempt to kill it is worth fixing; one that doesn't was noise.
 3. **Fix only behind a reproducing check** — a failing test, a backtest, a rerun that demonstrably flips from bad to good. A fix with no reproduction is a guess wearing a diff.
 4. **Treat deploy as the real test, and go look.** Passing tests locally isn't the finish line for high-stakes code — after it ships, deliberately find *positive evidence* in the actual logs/metrics that the fix behaved as intended. No errors is not the same as working; a feature can be silently dead from day one and "no errors" would never tell you.
+
+A cheap addition that catches a different class of error: **have a second, different model read the finding** (read-only) before you act on it. Same-model verification shares the blind spot that produced the claim in the first place — a different model doesn't. One or two calls, at the points where it pays: the final review of a non-trivial change, and the moment you've failed three times at the same error and are about to guess a fourth.
 
 Cherry-pick the layer that fits — a small change might only need step 2; a full subsystem audit wants all four.
 

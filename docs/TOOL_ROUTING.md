@@ -31,6 +31,29 @@ Within one task type, don't default to the heaviest tool — weigh the ask first
 
 Test before escalating a tier: does this genuinely need multi-pass adversarial verification of many claims, or would one good agent answer it? The same weighing applies to any tool family with a cheap and an expensive mode (a quick grep vs. a full-repo audit, a single verifier vs. an N-way panel) — match the tier to the question, not to what feels thorough.
 
+## Which loop primitive, and when
+
+Routing isn't only "which tool" — it's also "how much autonomy". These four escalate, and picking one too high up the ladder is how a simple ask turns into an unsupervised process:
+
+1. **Turn-based** — ordinary conversation. Short task, the agent decides when it's finished, the user sees every step. The default; most work never needs more.
+2. **Goal-based** — there's a *checkable* done-criterion, so the agent can iterate check → fix → check on its own and come back with a finished result. Requires a stop rule ("give up after N attempts") or it grinds.
+3. **Time-based** — the work is tied to a schedule or an external system: poll a queue every N minutes, check a run after it finishes. Note the difference between a loop that lives only while the session is open and a scheduled job that survives a closed laptop — pick deliberately.
+4. **Proactive** — a sustained stream of similar tasks (triage, routine updates), composing all of the above. Only worth building once the same task has recurred enough to be boring.
+
+The safety guards don't relax as you climb: a mutating action still needs confirmation at tier 4 exactly as it does at tier 1. Autonomy changes *who starts* the work, never *what may happen unconfirmed*.
+
+## Orchestration: who decides the structure
+
+When one task needs many agents, the real choice is **where the control flow lives**:
+
+- **One subagent** — a single well-scoped subtask. Cheapest; use it unless the work genuinely splits.
+- **Model-led decomposition** — you hand over a broad goal and the model decides how to break it up. Right when the shape of the work is unknown up front; wrong when you already know the structure, because the model will re-derive it (differently) every run.
+- **Code-led orchestration** — the fan-out *and the verification* are written as a script: N agents over a known list, results checked in code (2-of-3 votes, loop-until-nothing-new-found, an explicit dedup pass). Right when you know the structure and want it identical every time.
+
+The reason to prefer code-led when you can: **verification in code is deterministic; verification in prose is a suggestion.** "Have an agent double-check this" is a hope. `survives = votes.filter(v => !v.refuted).length >= 2` is a rule. Put the judgment in the agents and the arithmetic in the script.
+
+Costs are real — a fan-out spends tokens proportional to its width. Match the width to the stakes, and say out loud what was capped (top-N, no retry, sampling) rather than letting a silent truncation read as full coverage.
+
 ## Don't
 - Don't install a paid/mutating tool without the user's command.
 - Don't duplicate a built-in with an external tool (web fetch / browser automation / image reading often already exist).

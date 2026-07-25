@@ -67,6 +67,10 @@ Don't grow a second copy of the same thing. Check against what you already have:
 
 Duplication isn't an automatic reject (a manual-use tool can still earn its place next to an automated one). Name exactly what it overlaps with and whether you need both.
 
+**Judge duplication by reading the code, not by names and dates.** Two things with the same name, or a newer date, prove nothing about whether one supersedes the other. Open both and compare what they actually do. Declaring "we already have this" from a file listing is how a genuinely better implementation gets thrown away — and how a stale copy gets kept.
+
+**A "duplicate" verdict is not the end of the evaluation — harvest first.** Before rejecting, diff the candidate against your existing version and pull out what it does better: a sharper heuristic, a case you don't handle, a cleaner prompt, a check you're missing. Adopt those pieces into what you already have, *then* reject the candidate as a whole. A reject that leaves the improvement on the table is a wasted evaluation — you paid the reading cost and kept none of the value. Record the harvested pieces in the verdict row, so the next session knows the idea was taken even though the tool wasn't.
+
 ---
 
 ## PHASE 4 — potential & integration

@@ -16,6 +16,8 @@ When analyzing logs, events, transactions, or any structured trace of what a sys
 - **List alternative hypotheses before picking one:** randomness, a config mismatch, a bug, or deliberate behavior. Rule three out before committing to the fourth.
 - **Look for the mechanism.** "How is this physically possible" is a stronger question than "what does this look like" — a story without a mechanism is still a guess.
 - **Check reproducibility.** Does the same pattern show up earlier in the history, or is this one instance being over-read?
+- **Read speculatively, in one batch.** When diagnosing, pull every plausible source at once — config, the code path, the fresh log, the reference implementation, your own notes — rather than one at a time, each round shaped by the last guess. Sequential reading anchors you to the first hypothesis; a parallel batch lets the contradiction between two sources surface on its own.
+- **Never conclude from a truncated search.** A grep that hit an output limit, a log tail, a paginated API answer, a search capped at N results — none of them support "there is no X". They support "in the part I saw, no X". Either widen the search until it completes, or state the bound explicitly in the conclusion. This is the quiet way a wrong "it doesn't exist anywhere" enters the record and gets trusted later.
 
 ## Don't
 - Don't restart/patch and move on without analyzing what actually happened.
