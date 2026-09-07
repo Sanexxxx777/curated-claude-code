@@ -25,6 +25,8 @@ When a reproducible task takes more than ~5 rounds of trial-and-error (or hits t
 2. **A named failure pattern.** You can name the specific failure this path avoids or diagnoses, not a vague "sometimes it breaks".
 3. **At least one ruled-out dead-end.** A concrete approach you tried and eliminated, with the reason.
 
+**The artifact scale — default to the smaller one.** Even past the gate, "write a skill" is rarely the right size. The scale, cheapest first: a **note** in an existing project file → a **reference** doc → a **checklist section inside a skill or rule that already exists** → a **new skill** → **reject**. A new skill is justified only when it materially changes default behavior; otherwise it's a duplicate wearing a new name, and duplicates are how a curated stack turns into a dumped one. "The source calls itself a skill" is not an argument. When something duplicates an existing skill, it becomes a section *in* that skill.
+
 Missing any of the three → it's not a skill yet; leave a memory note explicitly marked *unverified* instead. And when you do write the skill, include a **"What didn't work"** section — the dead-ends you ruled out (with reasons) often save the next session more time than the golden path itself. (Gate criteria cherry-picked from [`Kulaxyz/self-learning-skills`](https://github.com/Kulaxyz/self-learning-skills) — a technique worth crediting, per this repo's own rules.)
 
 ### Layer 4 — controlled intake
@@ -60,13 +62,16 @@ A live system always has two kinds of capability. Naming both is part of the dis
 - Code principles (think-before-code, simplicity, surgical edits, verifiable targets, plan-mode).
 - Root-cause discipline (fix the owning layer, minimal ≠ smallest diff, primary vs secondary verification signals) — see [`rules/root-cause-discipline.md`](../rules/root-cause-discipline.md).
 - **Cross-model review** — a second, *different* model reads the finished work read-only before "done" on anything non-trivial, and again after three failed attempts at the same error. Promoted from "emerging" below: what made it stick was making it cheap and bounded (read-only, one or two calls per task, no write access) rather than aspirational.
+- **An evidence ladder with an honest `skip`** — claims are graded on collected signal, not on confident prose, and "we didn't look" is a distinct verdict from "we looked and it's fine". See [`skills/proof`](../skills/proof/SKILL.md). This is what turned "verify your work" from a slogan into something with a failure mode you can name.
+- **Deterministic orchestration** — promoted from the list below. Fan-out and vote counting now live in a script rather than in prose instructions. What made it work was counting the reports that *came back* instead of quietly filtering out the missing ones: a run where half the gates never reported is `unverifiable`, and arithmetic says so where an instruction to "make sure all agents finish" never did.
 
 ### Emerging (being grown)
 These are deliberately *open*, not gaps to hide:
 - **Separation of judge from author** — semantic verification by a different pass/model, not the hand that did the work (already wired into `skills/goal`; generalizing further).
-- **Deterministic orchestration** — moving fan-out and vote-counting from prose instructions into an actual script, so verification is arithmetic rather than a request. `konsilium` still runs one model in N lenses; the structure around it is what's being made deterministic.
 - **Budget-aware loops** — time/token ceilings on autonomous work, beyond a simple cycle count.
 - **Deeper verification rubrics** — typed, measurable done-criteria as the default everywhere, not just in `goal`.
+- **Detector-aware absence claims** — "nothing found" is only meaningful with a stated search area *and* a detector known to be able to see the thing. The rule exists (`skills/proof`, step 4); making every scan report its own coverage automatically is not there yet.
+- **Continuity across sessions** — when work spans context compaction or a restart, what survives is whatever was written down at the moment of discovery. The memory pattern covers facts; carrying an unfinished *task* across a boundary without a human re-briefing it is still manual.
 
 When an "emerging" item matures, it moves up to "established" and a new one takes its place. That movement *is* the evolution — and it's meant to be visible here: cross-model review sat in this bottom list before it earned its way into the one above, and something in the current bottom list should be gone the next time you read this file. A "points of growth" section that never changes is decoration.
 

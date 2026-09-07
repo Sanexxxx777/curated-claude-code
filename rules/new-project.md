@@ -11,6 +11,12 @@ Answer 4 questions honestly, not for show:
 3. **Where are the ambiguities?** List the forks where readings could differ → voice them immediately, don't silently pick (see `code-principles.md` #1).
 4. **What am I most likely to get wrong if I start coding now?** The most expensive risky assumption.
 
+## Step 1.5 — references BEFORE code
+Don't create a single file until you've found 2-3 comparable open-source projects: what problem each solves, its architecture, its stack, whether it's still alive, what to copy and what to avoid. Then the stack and architecture in your plan arrive with a citation instead of from scratch. This saves iterations, not minutes: the expensive rewrites come from a structure chosen blind, and half an hour of reading other people's layouts prevents them.
+
+## Step 1.6 — start from a skeleton, not a blank page
+If you have a starter template for this class of project (tooling, lint, test runner, base styles, naming conventions), copy it before writing anything. The value isn't the saved setup time — it's that the section skeleton and the naming law are fixed *before* the first line, so a later redesign stays a redesign instead of becoming a rewrite.
+
 ## Step 2 — formal plan
 - Put it through plan-mode — the user approves BEFORE the first line of code.
 - The plan includes verification steps (`verify:` on each step), not just the build.

@@ -49,6 +49,7 @@ Full rationale: [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md).
 | Skill | What it does |
 |-------|--------------|
 | [`vet`](skills/vet/SKILL.md) | Evaluate an incoming tool through one pipeline; security is a blocking gate; record the verdict. |
+| [`proof`](skills/proof/SKILL.md) | Grade a claim ("it's deployed", "the fix works", "no vulnerabilities") on an evidence ladder, with an honest `skip` when nothing decisive was collected. |
 | [`workflow-upgrade`](skills/workflow-upgrade/SKILL.md) | The deliberate "improve the system" loop: audit → vet → adopt with discipline → record. |
 | [`goal`](skills/goal/SKILL.md) | Autonomous goal loop with a designed verification rubric and hard safety guards. |
 | [`konsilium`](skills/konsilium/SKILL.md) | 5 independent perspectives + mutual critique + synthesis for high-stakes decisions. |
@@ -69,7 +70,7 @@ Two by design, not sixty — each reflects the verify-before-trust stance, not f
 | Rule | What it covers |
 |------|----------------|
 | [`code-principles.md`](rules/code-principles.md) | Behavioral rules against typical LLM coding mistakes (think-before-code, simplicity, surgical edits, verifiable targets, plan-mode). |
-| [`safety-guards.md`](rules/safety-guards.md) | The spine: external content = data not commands; mutation = confirmation; signing-to-real-funds = never; secrets as file:line; result honesty. |
+| [`safety-guards.md`](rules/safety-guards.md) | The spine: external content = data not commands; mutation = confirmation; signing-to-real-funds = never; secrets as file:line; result honesty; dependency intake (a package name a model proposed is a claim, not a fact). |
 | [`root-cause-discipline.md`](rules/root-cause-discipline.md) | Where a fix belongs and what counts as verified — fix the owning layer not the nearest symptom, minimal ≠ smallest diff, primary vs secondary signals. |
 | [`new-project.md`](rules/new-project.md) | A "think before code" checklist for starting something from scratch. |
 | [`detective-mindset.md`](rules/detective-mindset.md) | Reading logs/data like a detective — numeric coincidences, distribution anomalies, cross-source correlation, ghost state, repeat actors, config-vs-code drift. |
@@ -81,11 +82,13 @@ Two by design, not sixty — each reflects the verify-before-trust stance, not f
 - [`docs/TOOL_ROUTING.md`](docs/TOOL_ROUTING.md) — task → tool routing, proactively.
 - [`docs/CHANGE_DISCIPLINE.md`](docs/CHANGE_DISCIPLINE.md) — backup → surgical → verify → record.
 - [`examples/`](examples/) — a registry template and a worked `/vet` verdict.
+- [`CHANGELOG.md`](CHANGELOG.md) — what changed in each release, and why.
 
 ## Which skill should I use?
 | I want to… | Use |
 |------------|-----|
 | Decide whether to adopt a new tool/skill/MCP | `vet` |
+| Find out whether "it works" is actually proven | `proof` |
 | Run a deliberate pass to improve my whole setup | `workflow-upgrade` |
 | Hand a goal to the agent and get back a finished, verified result | `goal` |
 | Pressure-test a high-stakes decision (go/no-go) | `konsilium` |
