@@ -85,6 +85,22 @@ Two by design, not sixty — each reflects the verify-before-trust stance, not f
 - [`examples/`](examples/) — a registry template and a worked `/vet` verdict.
 - [`CHANGELOG.md`](CHANGELOG.md) — what changed in each release, and why.
 
+### Companion tools (one file each, separate repos)
+Small tools built while running this harness. Each one is standalone Python (stdlib), measured on real data, with a "what it does not do" section in its README.
+
+| Tool | What it does |
+|------|--------------|
+| [`agent-census`](https://github.com/Sanexxxx777/agent-census) | What your agent was offered (skills, subagents, MCP servers, deferred tools) versus what it used, from Claude Code's own transcripts. |
+| [`ref-rot`](https://github.com/Sanexxxx777/ref-rot) | File paths your `AGENTS.md` / `CLAUDE.md` point the agent at that no longer exist, and where git history says they went. |
+| [`secret-fence`](https://github.com/Sanexxxx777/secret-fence) | A PreToolUse hook that keeps secret values out of the transcript: no whole-file reads of `.env` and keys, targeted grep allowed. |
+| [`veil`](https://github.com/Sanexxxx777/veil) | Masks secrets in logs before a model reads them and puts them back in its answer. |
+| [`lure-check`](https://github.com/Sanexxxx777/lure-check) | Tells a malware-lure GitHub repo from a real one before you paste its install line. |
+| [`ground-check`](https://github.com/Sanexxxx777/ground-check) | Rejects an LLM summary that names something its source never said. |
+| [`slopcheck`](https://github.com/Sanexxxx777/slopcheck) | Finds the tells of AI writing in a file, `file:line`, non-zero exit for CI. |
+| [`teardown`](https://github.com/Sanexxxx777/teardown) | Says what a repository really is: a prompt you could rewrite in an afternoon, or a platform you would be maintaining. |
+| [`claude-cache-timer`](https://github.com/Sanexxxx777/claude-cache-timer) | Prompt-cache countdown in the Claude Code footer, and why the cache was rebuilt early. |
+| [`agent-graph-inspector`](https://github.com/Sanexxxx777/agent-graph-inspector) | One HTML page per Workflow run: every subagent a node, sized by real duration, with the critical path. |
+
 ## Which skill should I use?
 | I want to… | Use |
 |------------|-----|

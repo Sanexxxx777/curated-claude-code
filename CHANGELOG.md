@@ -2,6 +2,16 @@
 
 All notable changes to this harness. The rule for this file mirrors the repo's own change discipline: one entry per change, with the *why*, not a diff dump.
 
+## [0.3.0] — 2026-11-16
+Things learned from a pass over 133 trending repositories, each read by its code rather than its README. Most of them were platforms we would never install; a few held one idea worth keeping.
+
+### Added
+- **`skills/ship-secure` Section J: CI/CD pipelines.** A workflow runs with the repo's token and secrets, and on a public repo anyone can open the issue or pull request whose title ends up in a `run:` step. The section covers expression injection, `pull_request_target` and `workflow_run` with untrusted code, token permissions, pinning third-party actions by SHA, secrets in fork-triggered runs, self-hosted runners, cache poisoning and release jobs, and starts from two deterministic analyzers (zizmor, actionlint).
+- **`skills/ship-secure` B5-B6: races and business logic.** A burst of identical requests against a balance or a coupon, and the flows no scanner sees: a refund after the thing was consumed, a step called out of order, a price or account id taken from the request body.
+- **`skills/ship-secure` F5-F7: indirect injection.** Text the model reads (pages, documents, tool output) and not only what the user types; exfiltration through rendered Markdown images; least-privilege tools for agents and quarantine for memory written from untrusted sources.
+- **`skills/goal`: resume means re-verify.** After a compaction, a session break or a fork, the loop re-reads its state file and re-checks the live state before acting, and a goal the user stopped never restarts on its own. Taken from the guard list of a goal-loop driver in an open-source agent harness.
+- **README: companion tools.** Links to the standalone tools built alongside this harness, two of them new: `agent-census` (what an agent was offered versus what it used) and `ref-rot` (paths in agent instruction files that no longer exist).
+
 ## [0.2.0] — 2026-09-07
 The evidence release. Everything here comes from the same recurring failure: an agent reporting "done" on work nothing actually checked, in the same tone it uses for work that was.
 

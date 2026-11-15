@@ -47,6 +47,7 @@ Budget (whichever hits first = STOP): cycles N=3-5 · time <if relevant> · toke
 - **Back up BEFORE editing + verify AFTER by checking** (not on faith): no "it works" without a live run; positive evidence (the feature fired in logs); "no errors" ≠ working.
 - **Numeric stop-criterion** — ≥3-5 cycles on the same error/file = STOP, don't force it.
 - **Durable trail for a long loop** — `run-log.md` (each step/decision/check result/blocker) + `state.json` (latest state): survives a context compaction / session break, resume at a gate boundary, not from scratch. Optional for short loops.
+- **Resume = re-verify, never auto-continue:** after a context compaction, a session break or a fork, re-read `state.json` AND re-check the live state before the next action (what the loop believed before the break is stale). A goal the user stopped or cancelled never restarts on its own.
 - **Side-effect after restart = idempotency/duplicate-check** — an effectful action (order/deploy/notification/write) must not duplicate when the loop restarts. Before repeating an action, check whether it already happened.
 
 ## Final report (only when the goal is reached OR on STOP)

