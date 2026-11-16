@@ -2,6 +2,11 @@
 
 All notable changes to this harness. The rule for this file mirrors the repo's own change discipline: one entry per change, with the *why*, not a diff dump.
 
+## [Unreleased]
+### Added
+- **README: companion tool `reply-ending`.** Tells whether an agent's turn ended by asking you for something (a question, a decision, a command only you can run) or only reported, with a Stop hook that notifies only in the first case. Most asks in real sessions have no question mark, so "ends with ?" found 3 of 42 in a blind sample and this found 35.
+- **README: companion tool `variant-diff`.** Screenshots N design variants and flags pairs that are one page in other colours. Measured on recolours other people made (dark modes, Bootstrap themes), and its README says what it misses: a skeleton reused with new text and pictures.
+
 ## [0.3.0] — 2026-11-16
 Things learned from a pass over 133 trending repositories, each read by its code rather than its README. Most of them were platforms we would never install; a few held one idea worth keeping.
 

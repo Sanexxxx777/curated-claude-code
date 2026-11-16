@@ -86,12 +86,14 @@ Two by design, not sixty — each reflects the verify-before-trust stance, not f
 - [`CHANGELOG.md`](CHANGELOG.md) — what changed in each release, and why.
 
 ### Companion tools (one file each, separate repos)
-Small tools built while running this harness. Each one is standalone Python (stdlib), measured on real data, with a "what it does not do" section in its README.
+Small tools built while running this harness. Each one is standalone Python (stdlib, or Pillow where it has to look at pictures), measured on real data, with a "what it does not do" section in its README.
 
 | Tool | What it does |
 |------|--------------|
 | [`agent-census`](https://github.com/Sanexxxx777/agent-census) | What your agent was offered (skills, subagents, MCP servers, deferred tools) versus what it used, from Claude Code's own transcripts. |
 | [`ref-rot`](https://github.com/Sanexxxx777/ref-rot) | File paths your `AGENTS.md` / `CLAUDE.md` point the agent at that no longer exist, and where git history says they went. |
+| [`reply-ending`](https://github.com/Sanexxxx777/reply-ending) | Whether an agent's last message asks you for something or only reports, plus a Stop hook that notifies only when it asks. Russian and English. |
+| [`variant-diff`](https://github.com/Sanexxxx777/variant-diff) | Whether two of the design variants an agent gave you are one page in different colours, from screenshots. |
 | [`secret-fence`](https://github.com/Sanexxxx777/secret-fence) | A PreToolUse hook that keeps secret values out of the transcript: no whole-file reads of `.env` and keys, targeted grep allowed. |
 | [`veil`](https://github.com/Sanexxxx777/veil) | Masks secrets in logs before a model reads them and puts them back in its answer. |
 | [`lure-check`](https://github.com/Sanexxxx777/lure-check) | Tells a malware-lure GitHub repo from a real one before you paste its install line. |
